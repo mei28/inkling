@@ -1,5 +1,5 @@
 body {
-  width: 260px;
+  width: 280px;
   margin: 0;
   padding: 12px;
   font-family: system-ui, sans-serif;
@@ -20,8 +20,8 @@ h1 {
 }
 
 h2 {
-  margin: 0 0 6px;
-  font-size: 12px;
+  margin: 0 0 8px;
+  font-size: 11px;
   text-transform: uppercase;
   color: #888;
   letter-spacing: 0.5px;
@@ -31,18 +31,95 @@ section {
   margin-bottom: 10px;
 }
 
-label {
-  display: block;
-  padding: 3px 0;
-  cursor: pointer;
-}
-
 .toggle {
   display: flex;
   align-items: center;
   gap: 6px;
+  cursor: pointer;
 }
 
-input[type="radio"] {
-  margin-right: 4px;
+/* --- Mode selector with inline preview --- */
+
+.mode-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mode-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.mode-option:hover {
+  background: #f0f0f0;
+}
+
+.mode-option input[type="radio"] {
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.mode-preview {
+  display: inline-flex;
+  align-items: center;
+  font-family: "SF Mono", "Consolas", "Monaco", monospace;
+  font-size: 11px;
+  color: #333;
+  min-width: 80px;
+}
+
+.mode-name {
+  color: #666;
+  font-size: 12px;
+}
+
+/* Preview styles — mirrors the actual content.css modes */
+
+.preview-bg {
+  background-color: #3498db;
+  color: #fff;
+  border-radius: 2px;
+  padding: 0 3px;
+}
+
+.preview-fg {
+  color: #3498db;
+}
+
+.preview-marker::before {
+  content: "";
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-right: 3px;
+  background-color: #3498db;
+  border-radius: 2px;
+  vertical-align: middle;
+}
+
+.preview-underline {
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 1px;
+}
+
+.preview-dot::after {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-left: 3px;
+  background-color: #3498db;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.preview-outline {
+  outline: 2px solid #3498db;
+  outline-offset: 1px;
+  border-radius: 2px;
 }

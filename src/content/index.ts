@@ -2,7 +2,7 @@
 import { DEFAULT_SETTINGS } from "../shared/constants.ts";
 import type { Message, MessageResponse } from "../shared/messages.ts";
 import type { Settings } from "../shared/types.ts";
-import { undecorate } from "./decorator.ts";
+import { undecorate, updateModes } from "./decorator.ts";
 import { createObserver } from "./observer.ts";
 import { scan } from "./scanner.ts";
 
@@ -21,24 +21,25 @@ function isEnabledForDomain(settings: Settings): boolean {
 function applySettings(settings: Settings): void {
   const wasActive = isEnabledForDomain(currentSettings);
   const isActive = isEnabledForDomain(settings);
+  const modesChanged = currentSettings.displayModes.join(" ") !== settings.displayModes.join(" ");
   currentSettings = settings;
 
   if (isActive && !wasActive) {
     // Activate
-    scan(document.body, settings.displayMode);
-    observer = createObserver(document.body, settings.displayMode);
+    scan(document.body, settings.displayModes);
+    observer = createObserver(document.body, settings.displayModes);
     observer.start();
   } else if (!isActive && wasActive) {
     // Deactivate
     observer?.stop();
     observer = null;
     undecorate(document.body);
-  } else if (isActive) {
-    // Mode change — undecorate and re-scan
+  } else if (isActive && modesChanged) {
+    // Mode change only — update attributes, no DOM restructuring
+    updateModes(document, settings.displayModes);
+    // Restart observer with new modes for future nodes
     observer?.stop();
-    undecorate(document.body);
-    scan(document.body, settings.displayMode);
-    observer = createObserver(document.body, settings.displayMode);
+    observer = createObserver(document.body, settings.displayModes);
     observer.start();
   }
 }
@@ -50,7 +51,6 @@ chrome.runtime.sendMessage(
     if (response?.settings) {
       applySettings(response.settings);
     } else {
-      // Fallback: use defaults
       applySettings(DEFAULT_SETTINGS);
     }
   },

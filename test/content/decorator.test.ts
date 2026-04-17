@@ -25,7 +25,7 @@ describe("decorate", () => {
   it("wraps a single hex color in a span", () => {
     const { node, parent } = createTextInDiv("#ff0000");
     const matches = findColors(node.data);
-    decorate(node, matches, "background");
+    decorate(node, matches, ["background"]);
 
     const span = parent.querySelector(`[${ATTR_INKLING}]`);
     expect(span).not.toBeNull();
@@ -36,7 +36,7 @@ describe("decorate", () => {
   it("preserves surrounding text", () => {
     const { node, parent } = createTextInDiv("color is #ff0000 here");
     const matches = findColors(node.data);
-    decorate(node, matches, "background");
+    decorate(node, matches, ["background"]);
 
     expect(parent.textContent).toBe("color is #ff0000 here");
     expect(parent.querySelector(`[${ATTR_INKLING}]`)?.textContent).toBe("#ff0000");
@@ -45,7 +45,7 @@ describe("decorate", () => {
   it("handles multiple matches in one text node", () => {
     const { node, parent } = createTextInDiv("#f00 and #0f0");
     const matches = findColors(node.data);
-    decorate(node, matches, "background");
+    decorate(node, matches, ["background"]);
 
     const spans = parent.querySelectorAll(`[${ATTR_INKLING}]`);
     expect(spans).toHaveLength(2);
@@ -57,7 +57,7 @@ describe("decorate", () => {
   it("sets CSS custom properties for background mode", () => {
     const { node, parent } = createTextInDiv("#ff0000");
     const matches = findColors(node.data);
-    decorate(node, matches, "background");
+    decorate(node, matches, ["background"]);
 
     const span = parent.querySelector(`[${ATTR_INKLING}]`) as HTMLElement;
     expect(span.style.getPropertyValue(CSS_VAR_COLOR)).toBe("#ff0000");
@@ -68,7 +68,7 @@ describe("decorate", () => {
   it("sets CSS custom properties for foreground mode", () => {
     const { node, parent } = createTextInDiv("#ff0000");
     const matches = findColors(node.data);
-    decorate(node, matches, "foreground");
+    decorate(node, matches, ["foreground"]);
 
     const span = parent.querySelector(`[${ATTR_INKLING}]`) as HTMLElement;
     expect(span.getAttribute(ATTR_MODE)).toBe("foreground");
@@ -78,7 +78,7 @@ describe("decorate", () => {
   it("sets CSS custom properties for marker mode", () => {
     const { node, parent } = createTextInDiv("#ff0000");
     const matches = findColors(node.data);
-    decorate(node, matches, "marker");
+    decorate(node, matches, ["marker"]);
 
     const span = parent.querySelector(`[${ATTR_INKLING}]`) as HTMLElement;
     expect(span.getAttribute(ATTR_MODE)).toBe("marker");
@@ -88,7 +88,7 @@ describe("decorate", () => {
   it("handles match at start of text", () => {
     const { node, parent } = createTextInDiv("#fff rest");
     const matches = findColors(node.data);
-    decorate(node, matches, "background");
+    decorate(node, matches, ["background"]);
 
     expect(parent.textContent).toBe("#fff rest");
     expect(parent.childNodes).toHaveLength(2);
@@ -97,7 +97,7 @@ describe("decorate", () => {
   it("handles match at end of text", () => {
     const { node, parent } = createTextInDiv("start #fff");
     const matches = findColors(node.data);
-    decorate(node, matches, "background");
+    decorate(node, matches, ["background"]);
 
     expect(parent.textContent).toBe("start #fff");
     expect(parent.childNodes).toHaveLength(2);
@@ -105,7 +105,7 @@ describe("decorate", () => {
 
   it("does nothing for empty matches", () => {
     const { node, parent } = createTextInDiv("no colors here");
-    decorate(node, [], "background");
+    decorate(node, [], ["background"]);
 
     expect(parent.querySelector(`[${ATTR_INKLING}]`)).toBeNull();
     expect(parent.textContent).toBe("no colors here");
@@ -114,7 +114,7 @@ describe("decorate", () => {
   it("handles rgb() color", () => {
     const { node, parent } = createTextInDiv("rgb(255, 0, 0)");
     const matches = findColors(node.data);
-    decorate(node, matches, "background");
+    decorate(node, matches, ["background"]);
 
     const span = parent.querySelector(`[${ATTR_INKLING}]`);
     expect(span?.textContent).toBe("rgb(255, 0, 0)");

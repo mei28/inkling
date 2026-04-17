@@ -15,7 +15,7 @@ afterEach(() => {
 
 describe("createObserver", () => {
   it("decorates dynamically added text with color codes", async () => {
-    const observer = createObserver(document.body, "background");
+    const observer = createObserver(document.body, ["background"]);
     observer.start();
 
     const div = document.createElement("div");
@@ -30,7 +30,7 @@ describe("createObserver", () => {
   });
 
   it("does not process nodes inside existing decorations", async () => {
-    const observer = createObserver(document.body, "background");
+    const observer = createObserver(document.body, ["background"]);
     observer.start();
 
     const span = document.createElement("span");
@@ -47,7 +47,7 @@ describe("createObserver", () => {
   });
 
   it("debounces rapid mutations", async () => {
-    const observer = createObserver(document.body, "background");
+    const observer = createObserver(document.body, ["background"]);
     observer.start();
 
     for (let i = 0; i < 10; i++) {
@@ -71,7 +71,7 @@ describe("createObserver", () => {
   });
 
   it("stops observing after stop is called", async () => {
-    const observer = createObserver(document.body, "background");
+    const observer = createObserver(document.body, ["background"]);
     observer.start();
     observer.stop();
 
@@ -89,7 +89,7 @@ describe("createObserver", () => {
     div.textContent = "plain text";
     document.body.appendChild(div);
 
-    const observer = createObserver(document.body, "background");
+    const observer = createObserver(document.body, ["background"]);
     observer.start();
 
     div.textContent = "#ff0000";

@@ -1,4 +1,5 @@
 /* inkling — color code decoration styles */
+/* ~= matches space-separated words, enabling multiple modes on one span */
 
 [data-inkling] {
   border-radius: 2px;
@@ -6,19 +7,19 @@
   user-select: text;
 }
 
-/* background mode */
-[data-inkling][data-inkling-mode="background"] {
+/* background mode — fill background, auto-contrast text */
+[data-inkling][data-inkling-mode~="background"] {
   background-color: var(--inkling-color);
   color: var(--inkling-contrast);
 }
 
-/* foreground mode */
-[data-inkling][data-inkling-mode="foreground"] {
+/* foreground mode — color the text itself */
+[data-inkling][data-inkling-mode~="foreground"] {
   color: var(--inkling-color);
 }
 
 /* marker mode — colored square before the text */
-[data-inkling][data-inkling-mode="marker"]::before {
+[data-inkling][data-inkling-mode~="marker"]::before {
   content: "";
   display: inline-block;
   width: 0.8em;
@@ -29,14 +30,41 @@
   vertical-align: middle;
 }
 
+/* underline mode — thick colored underline */
+[data-inkling][data-inkling-mode~="underline"] {
+  border-bottom: 2px solid var(--inkling-color);
+  padding-bottom: 1px;
+}
+
+/* dot mode — colored circle after the text */
+[data-inkling][data-inkling-mode~="dot"]::after {
+  content: "";
+  display: inline-block;
+  width: 0.6em;
+  height: 0.6em;
+  margin-left: 0.25em;
+  background-color: var(--inkling-color);
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+/* outline mode — colored border around the text */
+[data-inkling][data-inkling-mode~="outline"] {
+  outline: 2px solid var(--inkling-color);
+  outline-offset: 1px;
+}
+
 /* hide decorations in print */
 @media print {
   [data-inkling] {
     background-color: transparent !important;
     color: inherit !important;
+    border: none !important;
+    outline: none !important;
     padding: 0;
   }
-  [data-inkling]::before {
+  [data-inkling]::before,
+  [data-inkling]::after {
     display: none;
   }
 }

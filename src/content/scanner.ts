@@ -37,7 +37,7 @@ function shouldSkip(el: Element | null): boolean {
 }
 
 /** Scan a DOM subtree for color strings and decorate them. */
-export function scan(root: Node, mode: DisplayMode): void {
+export function scan(root: Node, modes: readonly DisplayMode[]): void {
   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
     acceptNode(node: Node): number {
       const text = node as Text;
@@ -57,7 +57,7 @@ export function scan(root: Node, mode: DisplayMode): void {
   for (const textNode of textNodes) {
     const matches = findColors(textNode.data);
     if (matches.length > 0) {
-      decorate(textNode, matches, mode);
+      decorate(textNode, matches, modes);
     }
   }
 
@@ -66,7 +66,7 @@ export function scan(root: Node, mode: DisplayMode): void {
     const elements = root.querySelectorAll("*");
     for (const el of elements) {
       if (el.shadowRoot) {
-        scan(el.shadowRoot, mode);
+        scan(el.shadowRoot, modes);
       }
     }
   }

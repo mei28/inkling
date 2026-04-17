@@ -3,7 +3,7 @@ import type { Message, MessageResponse } from "../shared/messages.ts";
 import type { DisplayMode, Settings } from "../shared/types.ts";
 
 const enabledCheckbox = document.getElementById("enabled") as HTMLInputElement;
-const modeRadios = document.querySelectorAll<HTMLInputElement>('input[name="mode"]');
+const modeCheckboxes = document.querySelectorAll<HTMLInputElement>('input[name="mode"]');
 const domainToggle = document.getElementById("domain-toggle") as HTMLInputElement;
 const domainLabel = document.getElementById("domain-label") as HTMLSpanElement;
 
@@ -18,6 +18,14 @@ function broadcastSettings(settings: Settings): void {
   sendMessage({ type: "SETTINGS_CHANGED", settings });
 }
 
+function getSelectedModes(): DisplayMode[] {
+  const modes: DisplayMode[] = [];
+  for (const cb of modeCheckboxes) {
+    if (cb.checked) modes.push(cb.value as DisplayMode);
+  }
+  return modes;
+}
+
 async function init(): Promise<void> {
   // Get current tab's domain
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -26,7 +34,6 @@ async function init(): Promise<void> {
       currentDomain = new URL(tab.url).hostname;
       domainLabel.textContent = `Disable on ${currentDomain}`;
     } catch {
-      // chrome:// and other special URLs
       currentDomain = null;
       domainToggle.disabled = true;
     }
@@ -40,8 +47,8 @@ async function init(): Promise<void> {
   // Populate UI
   enabledCheckbox.checked = currentSettings.enabled;
 
-  for (const radio of modeRadios) {
-    radio.checked = radio.value === currentSettings.displayMode;
+  for (const cb of modeCheckboxes) {
+    cb.checked = currentSettings.displayModes.includes(cb.value as DisplayMode);
   }
 
   if (currentDomain) {
@@ -55,10 +62,16 @@ enabledCheckbox.addEventListener("change", () => {
   broadcastSettings(currentSettings);
 });
 
-for (const radio of modeRadios) {
-  radio.addEventListener("change", () => {
+for (const cb of modeCheckboxes) {
+  cb.addEventListener("change", () => {
     if (!currentSettings) return;
-    currentSettings.displayMode = radio.value as DisplayMode;
+    const modes = getSelectedModes();
+    // Require at least one mode
+    if (modes.length === 0) {
+      cb.checked = true;
+      return;
+    }
+    currentSettings.displayModes = modes;
     broadcastSettings(currentSettings);
   });
 }

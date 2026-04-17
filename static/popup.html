@@ -15,10 +15,51 @@
       </header>
 
       <section>
-        <h2>Display mode</h2>
-        <label><input type="radio" name="mode" value="background" /> Background</label>
-        <label><input type="radio" name="mode" value="foreground" /> Foreground</label>
-        <label><input type="radio" name="mode" value="marker" /> Marker</label>
+        <h2>Display modes</h2>
+        <div class="mode-list">
+          <label class="mode-option">
+            <input type="checkbox" name="mode" value="background" />
+            <span class="mode-preview">
+              <span class="preview-bg">#3498db</span>
+            </span>
+            <span class="mode-name">Background</span>
+          </label>
+          <label class="mode-option">
+            <input type="checkbox" name="mode" value="foreground" />
+            <span class="mode-preview">
+              <span class="preview-fg">#3498db</span>
+            </span>
+            <span class="mode-name">Foreground</span>
+          </label>
+          <label class="mode-option">
+            <input type="checkbox" name="mode" value="marker" />
+            <span class="mode-preview">
+              <span class="preview-marker">#3498db</span>
+            </span>
+            <span class="mode-name">Marker</span>
+          </label>
+          <label class="mode-option">
+            <input type="checkbox" name="mode" value="underline" />
+            <span class="mode-preview">
+              <span class="preview-underline">#3498db</span>
+            </span>
+            <span class="mode-name">Underline</span>
+          </label>
+          <label class="mode-option">
+            <input type="checkbox" name="mode" value="dot" />
+            <span class="mode-preview">
+              <span class="preview-dot">#3498db</span>
+            </span>
+            <span class="mode-name">Dot</span>
+          </label>
+          <label class="mode-option">
+            <input type="checkbox" name="mode" value="outline" />
+            <span class="mode-preview">
+              <span class="preview-outline">#3498db</span>
+            </span>
+            <span class="mode-name">Outline</span>
+          </label>
+        </div>
       </section>
 
       <section>

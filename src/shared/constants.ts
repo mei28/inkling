@@ -10,6 +10,6 @@ export const MAX_TEXT_LENGTH = 10_000;
 
 export const DEFAULT_SETTINGS: Settings = {
   enabled: true,
-  displayMode: "background",
+  displayModes: ["background"],
   disabledDomains: [],
 };

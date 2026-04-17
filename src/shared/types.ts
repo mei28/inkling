@@ -18,10 +18,10 @@ export interface Rgba {
   a: number; // 0-1
 }
 
-export type DisplayMode = "background" | "foreground" | "marker";
+export type DisplayMode = "background" | "foreground" | "marker" | "underline" | "dot" | "outline";
 
 export interface Settings {
   enabled: boolean;
-  displayMode: DisplayMode;
+  displayModes: DisplayMode[];
   disabledDomains: string[];
 }

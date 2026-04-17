@@ -3,13 +3,13 @@ import { ATTR_INKLING, DEBOUNCE_MS } from "../shared/constants.ts";
 import type { DisplayMode } from "../shared/types.ts";
 import { scan } from "./scanner.ts";
 
-interface InklingObserver {
+export interface InklingObserver {
   start(): void;
   stop(): void;
 }
 
 /** Create a debounced MutationObserver that scans new nodes for color codes. */
-export function createObserver(root: Node, mode: DisplayMode): InklingObserver {
+export function createObserver(root: Node, modes: readonly DisplayMode[]): InklingObserver {
   let timer: ReturnType<typeof setTimeout> | null = null;
   let pendingNodes: Set<Node> = new Set();
 
@@ -20,7 +20,7 @@ export function createObserver(root: Node, mode: DisplayMode): InklingObserver {
 
     for (const node of nodes) {
       if (!node.isConnected) continue;
-      scan(node, mode);
+      scan(node, modes);
     }
   }
 
