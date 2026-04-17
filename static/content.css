@@ -1,1 +1,42 @@
-/* inkling content styles — placeholder for Phase 3 */
+/* inkling — color code decoration styles */
+
+[data-inkling] {
+  border-radius: 2px;
+  padding: 0 2px;
+  user-select: text;
+}
+
+/* background mode */
+[data-inkling][data-inkling-mode="background"] {
+  background-color: var(--inkling-color);
+  color: var(--inkling-contrast);
+}
+
+/* foreground mode */
+[data-inkling][data-inkling-mode="foreground"] {
+  color: var(--inkling-color);
+}
+
+/* marker mode — colored square before the text */
+[data-inkling][data-inkling-mode="marker"]::before {
+  content: "";
+  display: inline-block;
+  width: 0.8em;
+  height: 0.8em;
+  margin-right: 0.2em;
+  background-color: var(--inkling-color);
+  border-radius: 2px;
+  vertical-align: middle;
+}
+
+/* hide decorations in print */
+@media print {
+  [data-inkling] {
+    background-color: transparent !important;
+    color: inherit !important;
+    padding: 0;
+  }
+  [data-inkling]::before {
+    display: none;
+  }
+}

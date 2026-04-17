@@ -1,2 +1,7 @@
+import type { DisplayMode } from "../shared/types.ts";
 // Content script entry point
-console.log("inkling loaded");
+import { scan } from "./scanner.ts";
+
+const mode: DisplayMode = "background";
+
+scan(document.body, mode);
