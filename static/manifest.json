@@ -19,5 +19,13 @@
   "background": {
     "service_worker": "background.js"
   },
+  "commands": {
+    "toggle-enabled": {
+      "suggested_key": {
+        "default": "Alt+Shift+C"
+      },
+      "description": "Toggle inkling on/off"
+    }
+  },
   "icons": {}
 }

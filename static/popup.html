@@ -6,8 +6,27 @@
   </head>
   <body>
     <div id="app">
-      <h1>inkling</h1>
-      <p>Color code highlighter</p>
+      <header>
+        <h1>inkling</h1>
+        <label class="toggle">
+          <input type="checkbox" id="enabled" />
+          <span>Enabled</span>
+        </label>
+      </header>
+
+      <section>
+        <h2>Display mode</h2>
+        <label><input type="radio" name="mode" value="background" /> Background</label>
+        <label><input type="radio" name="mode" value="foreground" /> Foreground</label>
+        <label><input type="radio" name="mode" value="marker" /> Marker</label>
+      </section>
+
+      <section>
+        <label class="toggle">
+          <input type="checkbox" id="domain-toggle" />
+          <span id="domain-label">Disable on this site</span>
+        </label>
+      </section>
     </div>
     <script src="popup.js"></script>
   </body>
