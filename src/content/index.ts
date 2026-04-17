@@ -6,7 +6,8 @@ import { undecorate, updateModes } from "./decorator.ts";
 import { createObserver } from "./observer.ts";
 import { scan } from "./scanner.ts";
 
-let currentSettings: Settings = DEFAULT_SETTINGS;
+// Start as disabled so the first applySettings() triggers activation
+let currentSettings: Settings = { ...DEFAULT_SETTINGS, enabled: false };
 let observer: ReturnType<typeof createObserver> | null = null;
 
 function currentDomain(): string {
