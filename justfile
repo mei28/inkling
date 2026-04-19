@@ -26,3 +26,8 @@ check: lint typecheck test
 # Serve demo page on localhost for testing
 serve port="3000":
     python3 -m http.server {{port}} -d public/fixtures
+
+# Create zip for Chrome Web Store submission
+package: build
+    rm -f inkling.zip
+    cd dist && zip -r ../inkling.zip .
