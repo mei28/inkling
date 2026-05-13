@@ -1,7 +1,7 @@
 # inkling
 
 <p align="center">
-  <img src="static/icons/icon-128.png" alt="inkling icon" width="96" />
+  <img src="store-assets/screenshots/inkling-5-compare.png" alt="Before and after: color codes highlighted in their actual color" width="100%" />
 </p>
 
 A Chrome extension that highlights color codes on web pages. Color strings like `#ff0000`, `rgb(0, 128, 255)`, and `hsl(120, 100%, 50%)` are instantly visualized with their actual color — no need to copy-paste into a color picker.
@@ -24,6 +24,10 @@ Inspired by [nvim-colorizer.lua](https://github.com/norcalli/nvim-colorizer.lua)
 - Skips editable areas (textarea, contenteditable, code editors)
 - Flicker-free mode switching — no page reload needed
 - Lightweight: ~12kb content script, no external dependencies
+
+<p align="center">
+  <img src="store-assets/screenshots/inkling-2-modes.png" alt="Six display modes: background, foreground, marker, underline, dot, outline" width="100%" />
+</p>
 
 ## Install
 
